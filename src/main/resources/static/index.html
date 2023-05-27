@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login & Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box; /* Add this line */
+    }
+    
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #800080;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #6a0e6a;
+    }
+    
+    .success-message {
+      display: none;
+      background-color: #ffd6ff;
+      color: #6a0e6a;
+      border: 1px solid #d6b3d6;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login & Registration</h1>
+    <div class="form-group">
+      <button onclick="toggleForm('login')">Login</button>
+    </div>
+    <div class="form-group">
+      <button onclick="toggleForm('register')">Register</button>
+    </div>
+    <div id="loginForm" style="display: none;">
+      <h2>Login</h2>
+      <form onsubmit="login(event)">
+        <div class="form-group">
+          <label for="loginUsername">Username</label>
+          <input type="text" id="loginUsername" placeholder="Enter your username" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+        </div>
+        <button type="submit" onclick="redirectToGrades()">Login</button>
+      </form>
+    </div>
+    <div id="registerForm" style="display: none;">
+      <h2>Register</h2>
+      <form onsubmit="register(event)">
+        <div class="form-group">
+          <label for="registerFirstName">First Name</label>
+          <input type="text" id="registerFirstName" placeholder="Enter your first name" required>
+        </div>
+        <div class="form-group">
+          <label for="registerLastName">Last Name</label>
+          <input type="text" id="registerLastName" placeholder="Enter your last name" required>
+        </div>
+        <div class="form-group">
+          <label for="registerStudentID">Student ID</label>
+          <input type="text" id="registerStudentID" placeholder="Enter your student ID" required>
+        </div>
+        <div class="form-group">
+          <label for="registerEmail">Email</label>
+          <input type="email" id="registerEmail" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+          <label for="registerPhoneNumber">Phone Number</label>
+          <input type="tel" id="registerPhoneNumber" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" id="registerPassword" placeholder="Choose a password" required>
+        </div>
+        <button type="submit">Register</button>
+      </form>
+    </div>
+    <div id="successMessage" class="success-message"></div>
+  </div>
+
+  <script>
+    function toggleForm(formName) {
+      var loginForm = document.getElementById("loginForm");
+      var registerForm = document.getElementById("registerForm");
+      var successMessage = document.getElementById("successMessage");
+
+      loginForm.style.display = "none";
+      registerForm.style.display = "none";
+      successMessage.style.display = "none";
+
+      if (formName === "login") {
+        loginForm.style.display = "block";
+      } else if (formName === "register") {
+        registerForm.style.display = "block";
+      }
+    }
+
+    function login(event) {
+      event.preventDefault();
+      var username = document.getElementById("loginUsername").value;
+      var password = document.getElementById("loginPassword").value;
+      // Perform login validation
+      // Replace the below code with your login logic
+      if (username === "admin" && password === "password") {
+        redirectToGrades();
+      } else {
+        alert("Invalid username or password");
+      }
+    }
+
+    function redirectToGrades() {
+      window.location.href = "grades.html";
+    }
+
+    function register(event) {
+      event.preventDefault();
+      var firstName = document.getElementById("registerFirstName").value;
+      var lastName = document.getElementById("registerLastName").value;
+      var studentID = document.getElementById("registerStudentID").value;
+      var email = document.getElementById("registerEmail").value;
+      var phoneNumber = document.getElementById("registerPhoneNumber").value;
+      var password = document.getElementById("registerPassword").value;
+      // Perform registration logic
+      // Replace the below code with your registration logic
+      if (firstName && lastName && studentID && email && phoneNumber && password) {
+        displaySuccessMessage("Registered successfully!");
+      } else {
+        alert("Please fill in all the fields.");
+      }
+    }
+
+    function displaySuccessMessage(message) {
+      var successMessage = document.getElementById("successMessage");
+      successMessage.innerText = message;
+      successMessage.style.display = "block";
+    }
+  </script>
+</body>
+</html>
