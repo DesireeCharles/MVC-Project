@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box; /* Add this line */
+    }
+    
+    button.switch {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #800080;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button.submit {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: green;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #6a0e6a;
+    }
+    
+    .success-message {
+      display: none;
+      background-color: #ffd6ff;
+      color: #6a0e6a;
+      border: 1px solid #d6b3d6;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div id="logged-off-section" class="container" style="display: none;">
+    <h1>Login & Registration</h1>
+    <div id="switch-to-login-form" class="form-group">
+      <button class="switch" onclick="toggleForm('login')">Login</button>
+    </div>
+    <div id="switch-to-register-form" class="form-group">
+      <button class="switch" onclick="toggleForm('register')">Register</button>
+    </div>
+    <div id="login-form" style="display: none;">
+      <h2>Login</h2>
+      <form onsubmit="login(event)">
+        <div class="form-group">
+          <label for="login-email">Email</label>
+          <input type="text" id="login-email" name="username" placeholder="Enter your email" autocomplete="username" required>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Password</label>
+          <input type="password" id="login-password" name="password" placeholder="Enter your password" autocomplete="password" required>
+        </div>
+        <button class="submit" type="submit" onclick="login(event)">Login</button>
+      </form>
+    </div>
+    <div id="register-form" style="display: none;">
+      <h2>Register</h2>
+      <form onsubmit="register(event)">
+        <div class="form-group">
+          <label for="register-firstname">First Name</label>
+          <input type="text" id="register-firstname" placeholder="Enter your first name" required>
+        </div>
+        <div class="form-group">
+          <label for="register-lastname">Last Name</label>
+          <input type="text" id="register-lastname" placeholder="Enter your last name" required>
+        </div>
+        <div class="form-group">
+          <label for="register-studentid">Student ID</label>
+          <input type="text" id="register-studentid" placeholder="Enter your student ID" required>
+        </div>
+        <div class="form-group">
+          <label for="register-phonenumber">Phone Number</label>
+          <input type="tel" id="register-phonenumber" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+          <label for="register-email">Email</label>
+          <input type="email" id="register-email" placeholder="Enter your email" autocomplete="username" required>
+        </div>
+        <div class="form-group">
+          <label for="register-password">Password</label>
+          <input type="password" id="register-password" placeholder="Choose a password" autocomplete="password" required>
+        </div>
+        <button class="submit" type="submit">Register</button>
+      </form>
+    </div>
+    <div id="success-message" class="success-message"></div>
+  </div>
+  <div id="logged-in-section" class="container" style="display: none;">
+    <h1>Feature after Login</h1>
+    <div class="form-group">
+      <button class="submit" onclick = "window.location.href='grades';">Grades</button>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener("load", (event) => {
+      reEvaluateSectionVisibility();
+    });
+
+    function reEvaluateSectionVisibility() {
+      const loggedOffSection = document.getElementById("logged-off-section");
+      const loggedInSection = document.getElementById("logged-in-section");
+      if (getCookieToken()) {
+        loggedOffSection.style.display = "none";
+        loggedInSection.style.display = "block";
+      } else {
+        loggedOffSection.style.display = "block";
+        loggedInSection.style.display = "none";
+      }
+    }
+
+    function getCookieToken() {
+      return document.cookie.split(";").some((item) => item.trim().startsWith("token="));
+    }
+
+    function toggleForm(formName) {
+      const switchToLogin = document.getElementById("switch-to-login-form");
+      const switchToRegister = document.getElementById("switch-to-register-form");
+      const loginForm = document.getElementById("login-form");
+      const registerForm = document.getElementById("register-form");
+      if (formName === "login") {
+        switchToLogin.style.display = "none";
+        switchToRegister.style.display = "block";
+        loginForm.style.display = "block";
+        registerForm.style.display = "none";
+      } else if (formName === "register") {
+        switchToLogin.style.display = "block";
+        switchToRegister.style.display = "none";
+        loginForm.style.display = "none";
+        registerForm.style.display = "block";
+      }
+      displayMessage("");
+    }
+
+    function login(event) {
+      event.preventDefault();
+      const credentials = {
+        username: document.getElementById("login-email").value,
+        password: document.getElementById("login-password").value
+      }
+      // login user
+      if (credentials.username && credentials.password) {
+        postData("/api/authenticate", credentials)
+        .then((data) => {
+          if (data?.token) {
+            reEvaluateSectionVisibility();
+          } else {
+            displayMessage("Login failed!");
+          }
+        });
+      } else {
+        displayMessage("Please fill in all the fields.");
+      }
+    }
+
+    function register(event) {
+      event.preventDefault();
+      const user = {
+        firstName: document.getElementById("register-firstname").value,
+        lastName: document.getElementById("register-lastname").value,
+        studentId: document.getElementById("register-studentid").value,
+        phoneNumber: document.getElementById("register-phonenumber").value,
+        email: document.getElementById("register-email").value,
+        password: document.getElementById("register-password").value,
+      }
+      // register user
+      if (user.firstName && user.lastName && user.studentId && user.phoneNumber && user.email && user.password) {
+        postData("/api/users", user)
+        .then((data) => {
+          if (data?.id) {
+            toggleForm("login");
+            displayMessage("Registered successfully!");
+          } else {
+            displayMessage("Registration failed: email already registered!");
+          }
+        });        
+      } else {
+        displayMessage("Please fill in all the fields.");
+      }
+    }
+
+    function displayMessage(text) {
+      const message = document.getElementById("success-message");
+      if (text) {
+        message.innerText = text;
+        message.style.display = "block";
+      } else {
+        message.innerText = "";
+        message.style.display = "none";        
+      }
+    }
+
+    async function postData(url = "", data = {}) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+      return response.json();
+    }
+  </script>
+</body>
+</html>

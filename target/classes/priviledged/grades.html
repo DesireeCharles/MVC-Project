@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grades</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    form {
+      margin-bottom: 20px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #800080;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    .form-group:last-child {
+      margin-top: 10px; /* Add vertical margin between the inputs */
+    }
+    
+    button:hover {
+      background-color: #6a0e6a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Grades</h1>
+    <form>
+      <div class="form-group">
+        <label for="marks">Student Marks</label>
+        <input type="text" id="marks" name="marks" placeholder="Enter student marks" required>
+      </div>
+      <div class="form-group">
+        <label for="grades">Grades</label>
+        <input type="text" id="grades" name="grades" placeholder="Automatically converted grades" disabled>
+      </div>
+      <button type="submit">Convert</button>
+    </form>
+  </div>
+
+  <script>
+    // Convert student marks to grades
+    function convertGrades() {
+      var marksInput = document.getElementById("marks");
+      var gradesInput = document.getElementById("grades");
+
+      var marks = parseInt(marksInput.value);
+      var grade = "";
+
+      if (marks >= 90) {
+        grade = "A";
+      } else if (marks >= 80) {
+        grade = "B";
+      } else if (marks >= 70) {
+        grade = "C";
+      } else if (marks >= 60) {
+        grade = "D";
+      } else {
+        grade = "F";
+      }
+
+      gradesInput.value = grade;
+    }
+
+    // Call the conversion function on form submission
+    var form = document.querySelector("form");
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      convertGrades();
+    });
+  </script>
+</body>
+</html>
