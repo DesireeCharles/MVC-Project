@@ -67,18 +67,4 @@ public class UserService {
             throw new IllegalAccessError("No token provided!");
         }
     }
-
-    public boolean validateAuthorization(String authorization) {
-        if (authorization!=null && authorization.toUpperCase().startsWith("BEARER ")) {
-            try {
-                tokenUtil.validateToken(authorization.substring(7));
-            } catch (Exception e) {
-                throw new IllegalAccessError("Authorization:Bearer <token> is not valid");
-            }
-        } else {
-            throw new IllegalAccessError("No Authorization:Bearer provided!");
-        }
-        return true;
-    }
-
 }

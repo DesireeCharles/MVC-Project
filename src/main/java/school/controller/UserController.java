@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import school.model.AuthenticationResult;
-import school.model.LoginUser;
 import school.model.User;
 import school.service.UserService;
 
@@ -34,12 +32,12 @@ public class UserController {
     }
 
     @PostMapping(path="/api/authenticate", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<AuthenticationResult> authenticate(@RequestBody LoginUser credentials) {
+	public ResponseEntity<Void> authenticate(@RequestBody User user) {
         String token = "";
         try {
-            token = service.authenticate(credentials.getUsername(), credentials.getPassword(), JWT_TOKEN_VALIDITY_IN_SECONDS);
+            token = service.authenticate(user.getEmail(), user.getPassword(), JWT_TOKEN_VALIDITY_IN_SECONDS);
         } catch(Exception | Error e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new AuthenticationResult(token));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         ResponseCookie cookie = ResponseCookie
                 .from("token", token)
@@ -49,8 +47,7 @@ public class UserController {
                 .path("/")
                 .build();
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(new AuthenticationResult(token));
+                .header(HttpHeaders.SET_COOKIE, cookie.toString()).build();
 	}
 
     @GetMapping("grades")

@@ -188,14 +188,14 @@
     function login(event) {
       event.preventDefault();
       const credentials = {
-        username: document.getElementById("login-email").value,
+        email: document.getElementById("login-email").value,
         password: document.getElementById("login-password").value
       }
       // login user
-      if (credentials.username && credentials.password) {
-        postData("/api/authenticate", credentials)
-        .then((data) => {
-          if (data?.token) {
+      if (credentials.email && credentials.password) {
+        postDataExpectStatus("/api/authenticate", credentials)
+        .then((status) => {
+          if (status === 200) {
             reEvaluateSectionVisibility();
           } else {
             displayMessage("Login failed!");
@@ -218,7 +218,7 @@
       }
       // register user
       if (user.firstName && user.lastName && user.studentId && user.phoneNumber && user.email && user.password) {
-        postData("/api/users", user)
+        postDataExpectJSON("/api/users", user)
         .then((data) => {
           if (data?.id) {
             toggleForm("login");
@@ -243,7 +243,7 @@
       }
     }
 
-    async function postData(url = "", data = {}) {
+    async function postDataExpectJSON(url = "", data = {}) {
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -252,6 +252,15 @@
         body: JSON.stringify(data)
       });
       return response.json();
+    }
+
+    async function postDataExpectStatus(url = "", data = {}) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+      });
+      return response.status;
     }
   </script>
 </body>
