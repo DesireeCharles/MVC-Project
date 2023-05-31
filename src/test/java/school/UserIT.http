@@ -1,6 +1,6 @@
 ### Hello Grades, authenticate with Cookie token
 GET http://localhost:8080/grades
-Cookie: token=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbkBzY2hvb2wuaWUiLCJpYXQiOjE2ODUzNjAyODIsImV4cCI6MTY4NTM2MDM0Mn0.D7L33HXl63PXGaG9USpfgdSMcOgIz7PkRbD3J8uV95U5If7JShtBUn4lA8Fr3tRy
+Cookie: token=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbkBzY2hvb2wuaWUiLCJpYXQiOjE2ODU1NjQwNjUsImV4cCI6MTY4NTU2NDEyNX0.ElVk44nVTdOw_l-OLoYWxzqTHH90EzFHpW8SV8Q_EoB2eWec71JTFuODoe_A-Rhj
 
 ### Authenticate
 POST http://localhost:8080/api/authenticate
@@ -16,11 +16,11 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-  "firstName": "Elek",
-  "lastName": "Teszt",
+  "firstName": "Eliot",
+  "lastName": "Test",
   "studentId": "223442",
   "phoneNumber": "123456",
-  "email": "e.teszt@school.ie",
+  "email": "e.test@school.ie",
   "password": "secret"
 }
 
@@ -29,10 +29,10 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-  "firstName": "Toni",
-  "lastName": "Okos",
+  "firstName": "Tom",
+  "lastName": "Trial",
   "studentId": "165685",
   "phoneNumber": "654321",
-  "email": "t.okos@school.ie",
+  "email": "t.trial@school.ie",
   "password": "mystery"
 }
