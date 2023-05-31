@@ -1,0 +1,38 @@
+### Hello Grades, authenticate with Cookie token
+GET http://localhost:8080/grades
+Cookie: token=eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJhZG1pbkBzY2hvb2wuaWUiLCJpYXQiOjE2ODUzNjAyODIsImV4cCI6MTY4NTM2MDM0Mn0.D7L33HXl63PXGaG9USpfgdSMcOgIz7PkRbD3J8uV95U5If7JShtBUn4lA8Fr3tRy
+
+### Authenticate
+POST http://localhost:8080/api/authenticate
+Content-Type: application/json
+
+{
+  "email": "admin@school.ie",
+  "password": "admin"
+}
+
+### Create
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Elek",
+  "lastName": "Teszt",
+  "studentId": "223442",
+  "phoneNumber": "123456",
+  "email": "e.teszt@school.ie",
+  "password": "secret"
+}
+
+### Create
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "firstName": "Toni",
+  "lastName": "Okos",
+  "studentId": "165685",
+  "phoneNumber": "654321",
+  "email": "t.okos@school.ie",
+  "password": "mystery"
+}
